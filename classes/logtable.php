@@ -24,6 +24,8 @@
  */
 
 namespace tool_userrestore;
+
+defined('MOODLE_INTERNAL') || die;
 require_once($CFG->libdir . '/tablelib.php');
 
 /**
@@ -84,7 +86,7 @@ class logtable extends \table_sql {
         $table = ($this->showhistory ? 'tool_userrestore_log' : 'tool_userrestore_status');
         $from = '{' . $table . '} l LEFT JOIN {user} u ON l.userid=u.id';
         $where = '1 = 1';
-        $params = null;
+        $params = array();
         parent::set_sql($fields, $from, $where, $params);
         $this->out($pagesize, $useinitialsbar);
     }
@@ -118,7 +120,7 @@ class logtable extends \table_sql {
      */
     protected function get_action_image($action) {
         global $OUTPUT;
-        return '<img src="' . $OUTPUT->pix_url($action, 'tool_userrestore') . '"/>';
+        return '<img src="' . $OUTPUT->image_url($action, 'tool_userrestore') . '"/>';
     }
 
     /**
